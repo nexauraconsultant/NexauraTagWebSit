@@ -1,15 +1,6 @@
 {
   "tags": [
     {
-      "id": "seed1",
-      "name": "Nexaura Consultant Ltd",
-      "category": "AI Consultancy",
-      "description": "Our own digital business card — AI consultancy, automation, custom software and cloud solutions.",
-      "url": "https://nexauraconsultant.co.uk",
-      "photo": "thumb-nexaura.jpg",
-      "addedAt": 1735000000002
-    },
-    {
       "id": "seed2",
       "name": "ESH Driving School",
       "category": "Driving School",
