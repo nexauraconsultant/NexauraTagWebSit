@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nexaura Tags — Digital Business Cards</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--navy:#0B1020; --navy-2:#111731; --light:#F4F3EF; --line-dark:#232B4A; --line-light:#E2E0D8;
+--violet:#8B7CF6; --cyan:#22D3EE; --text-dark:#0F1220; --muted-dark:#6B7280;
+--text-light:#F2F3F7; --muted-light:#9CA3C0; --green:#3DD68C; --red:#F0716B;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--navy);color:var(--text-light);font-family:'Inter',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.display{font-family:'Baloo 2',sans-serif;}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+/* ---------- NAV ---------- */
+nav{display:flex;align-items:center;justify-content:space-between;padding:26px 0;}
+.brand{display:flex;align-items:center;gap:11px;}
+.brand-mark{width:34px;height:34px;flex-shrink:0;}
+.brand-mark img{width:100%;height:100%;object-fit:contain;}
+.brand-name{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:16px;letter-spacing:0.3px;}
+.brand-name span{color:var(--muted-light);font-weight:500;}
+.mgr-btn{font-size:13px;font-weight:600;color:var(--text-light);border:1.5px solid var(--violet);padding:9px 18px;border-radius:8px;background:transparent;cursor:pointer;transition:all .15s ease;}
+.mgr-btn:hover{background:var(--violet);}
+
+/* ---------- HERO (dark navy) ---------- */
+.hero-section{background:var(--navy);position:relative;overflow:hidden;}
+.hero-glow{position:absolute;top:-100px;right:-120px;width:440px;height:440px;border-radius:50%;
+background:radial-gradient(circle,rgba(139,124,246,0.25),transparent 70%);pointer-events:none;}
+.hero{padding:56px 0 50px;position:relative;z-index:1;display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
+.hero-copy{flex:1;min-width:280px;}
+.eyebrow{font-size:12.5px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);font-weight:700;margin-bottom:16px;}
+h1{font-family:'Baloo 2',sans-serif;font-size:clamp(30px,4.6vw,46px);font-weight:700;line-height:1.15;margin-bottom:18px;}
+h1 .accent{color:var(--violet);}
+.sub{color:var(--muted-light);font-size:15.5px;line-height:1.65;max-width:440px;margin-bottom:26px;}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--violet);color:#fff;font-weight:700;font-size:14px;border-radius:9px;text-decoration:none;transition:transform .15s ease,background .15s ease;font-family:'Baloo 2',sans-serif;}
+.hero-cta:hover{background:#7669e0;transform:translateY(-2px);}
+.hero-visual{width:220px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.hero-visual img{width:100%;height:auto;filter:drop-shadow(0 20px 50px rgba(139,124,246,0.25));animation:floaty 4s ease-in-out infinite;}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+
+/* icon-badge chip row under hero */
+.chip-row{display:flex;flex-wrap:wrap;gap:12px;padding:0 0 54px;position:relative;z-index:1;}
+.chip{display:flex;align-items:center;gap:10px;background:var(--navy-2);border:1px solid var(--line-dark);border-radius:10px;padding:10px 16px;font-size:12.5px;font-weight:600;color:var(--text-light);}
+.chip .dot{width:26px;height:26px;border-radius:50%;background:rgba(139,124,246,0.18);display:flex;align-items:center;justify-content:center;font-size:13px;}
+
+/* ---------- LIGHT CONTRAST SECTION ---------- */
+.contrast-section{background:var(--light);color:var(--text-dark);padding:60px 0;}
+.contrast-section h2{font-family:'Baloo 2',sans-serif;font-size:clamp(24px,3.4vw,32px);font-weight:700;line-height:1.3;max-width:600px;}
+.contrast-section h2 .muted{color:#A0A0A0;display:block;}
+.contrast-section h2 .dark{color:var(--text-dark);display:block;}
+.contrast-section p{margin-top:18px;max-width:520px;color:#57596B;font-size:14.5px;line-height:1.7;}
+.contrast-cta{display:inline-block;margin-top:20px;font-weight:700;font-size:13px;letter-spacing:0.5px;text-transform:uppercase;color:var(--violet);text-decoration:none;border-bottom:2px solid var(--violet);padding-bottom:3px;}
+
+/* ---------- TAGS SECTION (dark) ---------- */
+.tags-section{background:var(--navy);padding:70px 0 30px;}
+.section-head{text-align:center;margin-bottom:36px;}
+.section-head .eyebrow{justify-content:center;display:flex;}
+.section-head h2{font-family:'Baloo 2',sans-serif;font-size:clamp(24px,3.6vw,34px);font-weight:700;}
+.tag-count{text-align:center;color:var(--muted-light);font-size:12.5px;margin-top:8px;margin-bottom:34px;}
+
+.tags-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;padding-bottom:50px;}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted-light);border:1px dashed var(--line-dark);border-radius:14px;font-size:13.5px;grid-column:1/-1;}
+
+.tag-card{background:var(--light);color:var(--text-dark);border-radius:16px;overflow:hidden;transition:transform .2s ease;}
+.tag-card:hover{transform:translateY(-5px);}
+.tag-thumb-wrap{width:100%;aspect-ratio:16/11;background:#E5E4DE;overflow:hidden;}
+.tag-thumb-wrap img{width:100%;height:100%;object-fit:cover;object-position:top;}
+.tag-thumb-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-size:30px;font-weight:700;color:#B8B6AC;}
+.tag-body{padding:22px;}
+.tag-cat{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;color:#fff;background:var(--violet);padding:4px 11px;border-radius:999px;margin-bottom:12px;}
+.tag-name{font-family:'Baloo 2',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;}
+.tag-desc{font-size:13px;color:#5B5D6E;line-height:1.6;margin-bottom:18px;min-height:42px;}
+.tag-view{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;border-radius:9px;background:var(--text-dark);color:#fff;font-weight:700;font-size:13.5px;text-decoration:none;font-family:'Baloo 2',sans-serif;transition:background .15s ease;}
+.tag-view:hover{background:var(--violet);}
+
+/* ---------- FINAL CTA (dark, gradient glow) ---------- */
+.cta-section{background:var(--navy-2);padding:60px 0;position:relative;overflow:hidden;}
+.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;position:relative;z-index:1;}
+.cta-inner h2{font-family:'Baloo 2',sans-serif;font-size:clamp(24px,3.6vw,34px);font-weight:700;max-width:500px;line-height:1.25;}
+.cta-inner h2 .accent{color:var(--cyan);}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:15px 30px;background:var(--violet);color:#fff;font-weight:700;font-size:14px;border-radius:9px;text-decoration:none;font-family:'Baloo 2',sans-serif;white-space:nowrap;}
+.cta-btn:hover{background:#7669e0;}
+.cta-logo{width:110px;flex-shrink:0;opacity:.9;}
+.cta-logo img{width:100%;height:auto;}
+
+/* ---------- CONTACT (form embedded in tags section end) ---------- */
+.contact-section{background:var(--navy);padding:70px 0 30px;}
+.contact-section .section-head h2{font-size:clamp(22px,3vw,30px);}
+.contact-box{max-width:560px;margin:0 auto;background:var(--navy-2);border:1px solid var(--line-dark);border-radius:16px;padding:32px;}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12px;color:var(--muted-light);font-weight:600;margin-bottom:7px;}
+.field input,.field textarea{width:100%;background:var(--navy);border:1px solid var(--line-dark);border-radius:8px;padding:11px 13px;color:var(--text-light);font-size:14px;font-family:inherit;outline:none;transition:border-color .15s ease;}
+.field input:focus,.field textarea:focus{border-color:var(--violet);}
+.field textarea{resize:vertical;min-height:90px;}
+.contact-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+.cbtn{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:9px;font-weight:700;font-size:13.5px;cursor:pointer;border:none;text-decoration:none;font-family:'Baloo 2',sans-serif;transition:opacity .15s ease;}
+.cbtn.wa{background:#25D366;color:#04250f;}
+.cbtn.mail{background:var(--violet);color:#fff;}
+.cbtn:hover{opacity:.9;}
+.cbtn:active{transform:scale(0.98);}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--navy);border-top:1px solid var(--line-dark);padding:40px 0 36px;}
+.footer-row{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap;margin-bottom:26px;}
+.footer-brand{display:flex;align-items:center;gap:12px;}
+.footer-brand img{width:36px;height:36px;object-fit:contain;}
+.footer-brand-name{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:15px;}
+.footer-tag{color:var(--muted-light);font-size:12.5px;margin-top:4px;}
+.footer-note{text-align:center;color:var(--muted-light);font-size:12px;line-height:1.8;padding-top:22px;border-top:1px solid var(--line-dark);}
+.footer-note b{color:var(--text-light);}
+
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(3px);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--navy-2);border:1px solid var(--line-dark);border-radius:16px;padding:26px;width:460px;max-width:100%;max-height:86vh;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.modal h3{font-family:'Baloo 2',sans-serif;font-size:17px;margin-bottom:6px;font-weight:700;}
+.modal-sub{font-size:12px;color:var(--muted-light);margin-bottom:16px;line-height:1.5;}
+.btn-row{display:flex;gap:10px;margin-top:16px;}
+.btn{flex:1;padding:11px 16px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;border:none;text-align:center;font-family:'Baloo 2',sans-serif;}
+.btn-primary{background:var(--violet);color:#fff;}
+.btn-ghost{background:transparent;color:var(--text-light);border:1px solid var(--line-dark);}
+.msg{font-size:12.5px;margin-bottom:12px;padding:10px 12px;border-radius:8px;}
+.msg.err{background:rgba(240,113,107,0.15);color:var(--red);}
+.msg.ok{background:rgba(61,214,140,0.15);color:var(--green);}
+.dropzone{border:1.5px dashed var(--line-dark);border-radius:10px;padding:16px;text-align:center;cursor:pointer;margin-bottom:14px;background:var(--navy);}
+.dropzone:hover{border-color:var(--violet);}
+.dropzone img{width:100%;max-height:110px;object-fit:cover;border-radius:8px;display:block;}
+.dz-text{font-size:12px;color:var(--muted-light);}
+.existing-list{margin-top:18px;border-top:1px solid var(--line-dark);padding-top:14px;}
+.deal-row{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;}
+.deal-row:hover{background:var(--navy);}
+.deal-row .thumb{width:32px;height:32px;border-radius:7px;object-fit:cover;background:var(--navy);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted-light);}
+.deal-row .info{flex:1;min-width:0;}
+.deal-row .info .n{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.deal-row .info .p{font-size:11px;color:var(--muted-light);}
+.del-btn{width:26px;height:26px;border-radius:7px;border:1px solid var(--line-dark);background:transparent;color:var(--muted-light);cursor:pointer;flex-shrink:0;}
+.del-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
+</style>
+</head>
+<body>
+
+<div class="hero-section">
+<div class="hero-glow"></div>
+<div class="wrap">
+<nav>
+<div class="brand"><div class="brand-mark"><img src="logo-icon.png" alt="Nexaura" /></div><div class="brand-name">Nexaura <span>· Tags</span></div></div>
+<button class="mgr-btn" onclick="openManager()">Manager Login</button>
+</nav>
+
+<div class="hero">
+<div class="hero-copy">
+<div class="eyebrow">Portfolio</div>
+<h1>Digital business cards, <span class="accent">built to impress.</span></h1>
+<p class="sub">A live look at the tags and smart contact pages Nexaura has built for real clients. Tap any project to see it in action.</p>
+<a class="hero-cta" href="#tags">See The Tags →</a>
+</div>
+<div class="hero-visual"><img src="logo-full.png" alt="Nexaura" /></div>
+</div>
+</div>
+
+<div class="wrap chip-row">
+<div class="chip"><span class="dot">🏷️</span>Digital Business Cards</div>
+<div class="chip"><span class="dot">💬</span>Instant WhatsApp Contact</div>
+<div class="chip"><span class="dot">⚡</span>Live In Minutes</div>
+</div>
+</div>
+
+<div class="contrast-section">
+<div class="wrap">
+<h2><span class="muted">Building your brand</span><span class="dark">is hard. Showing it off shouldn't be.</span></h2>
+<p>Every tag we build is a mobile-first digital business card — call, WhatsApp, email and directions in one tap. Below is a live look at ones we've shipped for real clients.</p>
+<a class="contrast-cta" href="#tags">Browse the tags</a>
+</div>
+</div>
+
+<div class="tags-section" id="tags">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">Live Projects</div>
+<h2>Tags Built For Real Businesses</h2>
+<div class="tag-count" id="tagCount">— live</div>
+</div>
+<div class="tags-grid" id="tagsGrid"><div class="empty-state">Loading...</div></div>
+</div>
+</div>
+
+<div class="cta-section">
+<div class="wrap cta-inner">
+<h2>Ready for your business to get a tag of its <span class="accent">own?</span></h2>
+<a class="cta-btn" href="#contact">Get In Touch →</a>
+<div class="cta-logo"><img src="logo-icon.png" alt="" /></div>
+</div>
+</div>
+
+<div class="contact-section" id="contact">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">Contact</div>
+<h2>Want A Tag Like This?</h2>
+</div>
+<div class="contact-box">
+<div class="field"><label>Your Name</label><input type="text" id="c_name" placeholder="Your name" /></div>
+<div class="field"><label>Message</label><textarea id="c_msg" placeholder="What do you need? (e.g. a digital business card for my shop)"></textarea></div>
+<div class="contact-btns">
+<a class="cbtn wa" id="waBtn" href="#" target="_blank">Message on WhatsApp</a>
+<a class="cbtn mail" id="mailBtn" href="#">Send an Email</a>
+</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="wrap">
+<div class="footer-row">
+<div class="footer-brand">
+<img src="logo-icon.png" alt="" />
+<div><div class="footer-brand-name">Nexaura Consultant Ltd</div><div class="footer-tag">AI Consultancy · Automation · Custom Software</div></div>
+</div>
+</div>
+<div class="footer-note">Created by <b>Nexaura Consultant Ltd</b> · Powered by Nexaura Consultant Ltd</div>
+</div>
+</footer>
+
+<!-- manager login -->
+<div class="overlay" id="loginOverlay" style="display:none;">
+<div class="modal">
+<h3>Manager login</h3>
+<div class="modal-sub">Sign in with your GitHub personal access token to add or remove tags. Stays only in your own browser.</div>
+<div id="loginMsg"></div>
+<div class="field"><label>GitHub personal access token</label><input type="password" id="tokenInput" placeholder="github_pat_..." /></div>
+<div class="field" style="display:flex;align-items:center;gap:8px;"><input type="checkbox" id="rememberToken" style="width:auto;" /><label style="margin:0;font-weight:400;">Remember on this device</label></div>
+<div class="btn-row"><button class="btn btn-ghost" onclick="closeOverlay('loginOverlay')">Cancel</button><button class="btn btn-primary" onclick="doLogin()">Continue</button></div>
+</div>
+</div>
+
+<!-- manager panel -->
+<div class="overlay" id="managerOverlay" style="display:none;">
+<div class="modal">
+<h3>Add a tag</h3>
+<div class="modal-sub">Saved as a real commit to the GitHub repo — everyone sees it within a minute.</div>
+<div id="formMsg"></div>
+<div class="field"><label>Project name</label><input type="text" id="f_name" placeholder="e.g. ESH Driving School" /></div>
+<div class="field"><label>Category</label><input type="text" id="f_cat" placeholder="e.g. Driving School, Consultancy, Restaurant" /></div>
+<div class="dropzone" id="dropzone" onclick="document.getElementById('f_photo').click()">
+<input type="file" id="f_photo" accept="image/*" onchange="previewPhoto(event)" style="display:none;" />
+<div id="dzContent"><div class="dz-text">Click to add a thumbnail (optional)</div></div>
+</div>
+<div class="field"><label>Description</label><textarea id="f_desc" placeholder="Short description of this tag"></textarea></div>
+<div class="field"><label>Live URL</label><input type="text" id="f_url" placeholder="https://..." /></div>
+<div class="btn-row"><button class="btn btn-ghost" onclick="closeOverlay('managerOverlay')">Close</button><button class="btn btn-primary" id="saveBtn" onclick="addTag()">Save Tag</button></div>
+<div class="existing-list" id="existingList"></div>
+</div>
+</div>
+
+<script>
+// ============================================================
+// SETUP: create a GitHub repo named exactly "nexaura-tags" under
+// this username, upload these 3 files (index.html, tags.json,
+// .nojekyll), turn on GitHub Pages. No code editing needed if the
+// repo name matches exactly. See SETUP.md for full steps.
+// ============================================================
+const GH_OWNER  = "nexauraconsultant";
+const GH_REPO   = "tagwebsit";
+const GH_BRANCH = "main";
+const DATA_PATH = "tags.json";
+
+const RAW_URL = `https://cdn.jsdelivr.net/gh/${GH_OWNER}/${GH_REPO}@${GH_BRANCH}/${DATA_PATH}`;
+const RAW_URL_FALLBACK = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/${DATA_PATH}`;
+const PURGE_URL = `https://purge.jsdelivr.net/gh/${GH_OWNER}/${GH_REPO}@${GH_BRANCH}/${DATA_PATH}`;
+const API_URL = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${DATA_PATH}`;
+
+const WHATSAPP_NUMBER = "447778233556";
+const EMAIL_ADDRESS = "nexauraconsultant@gmail.com";
+
+let currentTags = [];
+let ghToken = localStorage.getItem("gh_token") || "";
+let pendingPhoto = null;
+
+function esc(s){ return (s||"").toString().replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+async function loadTags(){
+  const grid = document.getElementById("tagsGrid");
+  try{
+    let data = null;
+    try{
+      const res = await fetch(`${RAW_URL}?t=${Date.now()}`, { cache:"no-store" });
+      if(res.ok) data = await res.json();
+    }catch(e){}
+    if(!data){
+      try{
+        const res2 = await fetch(`${RAW_URL_FALLBACK}?t=${Date.now()}`, { cache:"no-store" });
+        if(res2.ok) data = await res2.json();
+      }catch(e){}
+    }
+    if(!data){
+      // final fallback: the local tags.json shipped alongside this page
+      const res3 = await fetch(`tags.json?t=${Date.now()}`, { cache:"no-store" });
+      if(!res3.ok) throw new Error("not found");
+      data = await res3.json();
+    }
+    currentTags = data.tags || [];
+    renderTags();
+  }catch(e){
+    grid.innerHTML = `<div class="empty-state">Couldn't load tags right now. Try refreshing shortly.</div>`;
+  }
+}
+
+function renderTags(){
+  const grid = document.getElementById("tagsGrid");
+  document.getElementById("tagCount").textContent = `${currentTags.length} live`;
+  if(currentTags.length === 0){ grid.innerHTML = `<div class="empty-state">No tags added yet.</div>`; return; }
+  const sorted = [...currentTags].sort((a,b)=>(b.addedAt||0)-(a.addedAt||0));
+  grid.innerHTML = sorted.map((t,i)=>`
+    <div class="tag-card" style="animation-delay:${i*0.06}s">
+      <div class="tag-thumb-wrap">
+        ${t.photo ? `<img src="${t.photo}" alt="" />` : `<span class="tag-thumb-fallback">${esc((t.name||"?").charAt(0))}</span>`}
+      </div>
+      <div class="tag-body">
+        ${t.category ? `<span class="tag-cat">${esc(t.category)}</span>` : ""}
+        <div class="tag-name">${esc(t.name)}</div>
+        <div class="tag-desc">${esc(t.description||"")}</div>
+        <a class="tag-view" href="${esc(t.url||"#")}" target="_blank">View project →</a>
+      </div>
+    </div>`).join("");
+}
+
+function previewPhoto(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      const maxDim = 500;
+      let w=img.width, h=img.height;
+      if(w>h && w>maxDim){ h=Math.round(h*(maxDim/w)); w=maxDim; }
+      else if(h>maxDim){ w=Math.round(w*(maxDim/h)); h=maxDim; }
+      const canvas = document.createElement("canvas");
+      canvas.width=w; canvas.height=h;
+      canvas.getContext("2d").drawImage(img,0,0,w,h);
+      pendingPhoto = canvas.toDataURL("image/jpeg", 0.72);
+      document.getElementById("dzContent").innerHTML = `<img src="${pendingPhoto}" alt="" /><div class="dz-text" style="margin-top:6px;">Click to change</div>`;
+    };
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function openManager(){
+  if(ghToken){ showManagerPanel(); return; }
+  document.getElementById("loginOverlay").style.display = "flex";
+  document.getElementById("tokenInput").value = "";
+  document.getElementById("loginMsg").innerHTML = "";
+}
+function closeOverlay(id){ document.getElementById(id).style.display = "none"; }
+
+async function doLogin(){
+  const token = document.getElementById("tokenInput").value.trim();
+  const msg = document.getElementById("loginMsg");
+  if(!token){ msg.innerHTML = `<div class="msg err">Paste your token first.</div>`; return; }
+  msg.innerHTML = `<div class="msg">Checking...</div>`;
+  try{
+    const res = await fetch(API_URL, { headers:{ Authorization:`Bearer ${token}` } });
+    if(res.status===401 || res.status===403){ msg.innerHTML = `<div class="msg err">Token rejected — check it has 'repo' / Contents read-write access.</div>`; return; }
+    ghToken = token;
+    if(document.getElementById("rememberToken").checked) localStorage.setItem("gh_token", token);
+    closeOverlay("loginOverlay");
+    showManagerPanel();
+  }catch(e){ msg.innerHTML = `<div class="msg err">Couldn't reach GitHub — check your connection.</div>`; }
+}
+
+function showManagerPanel(){
+  document.getElementById("managerOverlay").style.display = "flex";
+  renderExistingList();
+  document.getElementById("f_name").value = "";
+  document.getElementById("f_cat").value = "";
+  document.getElementById("f_desc").value = "";
+  document.getElementById("f_url").value = "";
+  document.getElementById("dzContent").innerHTML = `<div class="dz-text">Click to add a thumbnail (optional)</div>`;
+  document.getElementById("formMsg").innerHTML = "";
+  pendingPhoto = null;
+}
+
+function renderExistingList(){
+  const list = document.getElementById("existingList");
+  if(currentTags.length===0){ list.innerHTML=""; return; }
+  list.innerHTML = `<div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;">CURRENT TAGS</div>` +
+    currentTags.map(t=>`
+      <div class="deal-row">
+        <div class="thumb">${t.photo ? `<img src="${t.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" />` : "🏷️"}</div>
+        <div class="info"><div class="n">${esc(t.name)}</div><div class="p">${esc(t.category||"")}</div></div>
+        <button class="del-btn" onclick="removeTag('${esc(t.id)}')" title="Remove">✕</button>
+      </div>`).join("");
+}
+
+async function saveTagsToGitHub(tags, attempt){
+  attempt = attempt || 1;
+  const getRes = await fetch(`${API_URL}?t=${Date.now()}`, { headers:{ Authorization:`Bearer ${ghToken}` }, cache:"no-store" });
+  if(!getRes.ok) throw new Error("Couldn't read current file");
+  const getData = await getRes.json();
+  const sha = getData.sha;
+  const newContent = btoa(unescape(encodeURIComponent(JSON.stringify({ tags }, null, 2))));
+  const putRes = await fetch(API_URL, {
+    method:"PUT",
+    headers:{ Authorization:`Bearer ${ghToken}`, "Content-Type":"application/json" },
+    body: JSON.stringify({ message:`Update tags (${tags.length} total)`, content:newContent, sha, branch:GH_BRANCH }),
+  });
+  if(putRes.status===409 && attempt<4){
+    await new Promise(r=>setTimeout(r, 500*attempt));
+    return saveTagsToGitHub(tags, attempt+1);
+  }
+  if(!putRes.ok){ const err = await putRes.json().catch(()=>({})); throw new Error(err.message || "GitHub rejected the commit"); }
+  fetch(PURGE_URL).catch(()=>{});
+}
+
+async function addTag(){
+  const btn = document.getElementById("saveBtn");
+  if(btn.disabled) return;
+  const name = document.getElementById("f_name").value.trim();
+  const category = document.getElementById("f_cat").value.trim();
+  const description = document.getElementById("f_desc").value.trim();
+  const url = document.getElementById("f_url").value.trim();
+  const msg = document.getElementById("formMsg");
+  if(!name || !url){ msg.innerHTML = `<div class="msg err">Fill in at least project name and live URL.</div>`; return; }
+  const newTag = { id: Date.now().toString(36)+Math.random().toString(36).slice(2,6), name, category, description, url, photo: pendingPhoto, addedAt: Date.now() };
+  const updated = [newTag, ...currentTags];
+  btn.disabled = true; btn.textContent = "Saving...";
+  msg.innerHTML = `<div class="msg">Saving to GitHub...</div>`;
+  try{
+    await saveTagsToGitHub(updated);
+    currentTags = updated;
+    msg.innerHTML = `<div class="msg ok">Committed to GitHub — live now.</div>`;
+    document.getElementById("f_name").value=""; document.getElementById("f_cat").value="";
+    document.getElementById("f_desc").value=""; document.getElementById("f_url").value="";
+    document.getElementById("dzContent").innerHTML = `<div class="dz-text">Click to add a thumbnail (optional)</div>`;
+    pendingPhoto = null;
+    renderTags(); renderExistingList();
+  }catch(e){ msg.innerHTML = `<div class="msg err">${esc(e.message)}</div>`; }
+  btn.disabled = false; btn.textContent = "Save Tag";
+}
+
+async function removeTag(id){
+  const updated = currentTags.filter(t=>t.id!==id);
+  const msg = document.getElementById("formMsg");
+  msg.innerHTML = `<div class="msg">Removing...</div>`;
+  try{
+    await saveTagsToGitHub(updated);
+    currentTags = updated;
+    msg.innerHTML = `<div class="msg ok">Removed and committed to GitHub.</div>`;
+    renderTags(); renderExistingList();
+  }catch(e){ msg.innerHTML = `<div class="msg err">${esc(e.message)}</div>`; }
+}
+
+/* CONTACT: build WhatsApp + mailto links live as the person types */
+function updateContactLinks(){
+  const name = document.getElementById("c_name").value.trim();
+  const message = document.getElementById("c_msg").value.trim();
+  const fullMsg = `Hi Nexaura, I'm ${name || "..."}. ${message || "I'd like to enquire about a digital tag."}`;
+  document.getElementById("waBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(fullMsg)}`;
+  document.getElementById("mailBtn").href = `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent("Enquiry from " + (name || "website visitor"))}&body=${encodeURIComponent(fullMsg)}`;
+}
+document.getElementById("c_name").addEventListener("input", updateContactLinks);
+document.getElementById("c_msg").addEventListener("input", updateContactLinks);
+updateContactLinks();
+
+loadTags();
+setInterval(loadTags, 60000);
+</script>
+</body>
+</html>
